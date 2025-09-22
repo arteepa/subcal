@@ -1,0 +1,33 @@
+{
+  "name": "calendario-app",
+  "version": "1.0.0",
+  "description": "A web app for sharing iCalendar feeds with beautiful subscription pages",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx http-server . -p 3000 -o",
+    "start": "npx http-server . -p 8080",
+    "build": "echo 'No build step needed for vanilla HTML/CSS/JS'",
+    "lint": "echo 'No linting configured yet'"
+  },
+  "keywords": [
+    "calendar",
+    "icalendar",
+    "ics",
+    "events",
+    "subscription"
+  ],
+  "author": "Pablo",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/calendario-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/calendario-app/issues"
+  },
+  "homepage": "https://github.com/your-username/calendario-app#readme"
+}

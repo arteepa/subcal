@@ -1,0 +1,653 @@
+/* Calendar-specific styles */
+
+.calendar-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.calendar-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.calendar-description {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.9;
+    line-height: 1.5;
+}
+
+/* Subscription Section */
+.subscription-section {
+    padding: 80px 20px;
+    background: white;
+}
+
+.subscription-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #1f2937;
+}
+
+.subscription-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #64748b;
+    margin-bottom: 60px;
+}
+
+.subscription-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.subscription-card {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    border: 2px solid #e5e7eb;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.subscription-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.subscription-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #1f2937;
+}
+
+.subscription-card p {
+    color: #64748b;
+    margin-bottom: 25px;
+}
+
+/* Subscribe Buttons */
+.subscribe-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.subscribe-btn {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    border: 2px solid #e5e7eb;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.subscribe-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.subscribe-btn .btn-icon {
+    font-size: 1.5rem;
+    min-width: 30px;
+}
+
+.subscribe-btn .btn-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.subscribe-btn strong {
+    font-size: 1rem;
+    color: #1f2937;
+}
+
+.subscribe-btn small {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.apple-btn:hover {
+    border-color: #000;
+    background: #f9fafb;
+}
+
+.google-btn:hover {
+    border-color: #4285f4;
+    background: #f8faff;
+}
+
+.outlook-btn:hover {
+    border-color: #0078d4;
+    background: #f8faff;
+}
+
+/* URL Container */
+.url-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+#calendar-url {
+    flex: 1;
+    padding: 12px 15px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    background: white;
+}
+
+.copy-btn {
+    padding: 12px 20px;
+    background: #6366f1;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s ease;
+    white-space: nowrap;
+}
+
+.copy-btn:hover {
+    background: #5046e4;
+}
+
+.copy-btn.copied {
+    background: #10b981;
+}
+
+/* QR Code */
+.qr-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+#qr-code {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #e5e7eb;
+}
+
+.download-btn {
+    padding: 10px 20px;
+    background: #64748b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.download-btn:hover {
+    background: #475569;
+}
+
+/* Events Section */
+.events-section {
+    padding: 80px 20px;
+    background: #f8fafc;
+}
+
+.events-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #1f2937;
+}
+
+
+.events-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.event-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-left: 4px solid #6366f1;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.event-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.event-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 5px;
+}
+
+
+.event-datetime {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #64748b;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.event-location {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #64748b;
+    margin-bottom: 15px;
+}
+
+.event-description {
+    color: #374151;
+    line-height: 1.6;
+}
+
+.event-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.add-to-calendar {
+    padding: 8px 16px;
+    background: #6366f1;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.add-to-calendar:hover {
+    background: #5046e4;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #64748b;
+    font-size: 1.1rem;
+}
+
+.no-events {
+    text-align: center;
+    padding: 40px;
+    color: #64748b;
+}
+
+.error-message {
+    text-align: center;
+    padding: 40px;
+    background: #fef2f2;
+    border: 2px solid #fecaca;
+    border-radius: 12px;
+    color: #dc2626;
+    margin: 20px 0;
+}
+
+.error-message h3 {
+    color: #dc2626;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.error-message p {
+    color: #7f1d1d;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.error-details {
+    background: #fee;
+    border-radius: 6px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: left;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.error-details ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.error-details li {
+    margin: 5px 0;
+}
+
+.retry-btn {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-top: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.retry-btn:hover {
+    background: #b91c1c;
+}
+
+/* Modal updates for subscription instructions */
+.subscription-instructions {
+    text-align: left;
+}
+
+.subscription-instructions h3 {
+    margin-bottom: 20px;
+    color: #1f2937;
+}
+
+.instruction-step {
+    margin-bottom: 15px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.instruction-step::before {
+    content: counter(step-counter);
+    counter-increment: step-counter;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #6366f1;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.subscription-instructions ol {
+    counter-reset: step-counter;
+}
+
+/* Sticky Subscribe Button */
+.sticky-subscribe {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 15px 20px;
+    background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid #e5e7eb;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+}
+
+.sticky-btn {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.sticky-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+    background: linear-gradient(135deg, #5046e4 0%, #7c3aed 100%);
+}
+
+.sticky-btn:active {
+    transform: translateY(0);
+}
+
+.sticky-btn-icon {
+    font-size: 1.3rem;
+}
+
+.sticky-btn-text {
+    font-weight: 600;
+}
+
+/* Modal styling improvements */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 0;
+    border: none;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #64748b;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1;
+    transition: color 0.3s ease;
+    background: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.close:hover,
+.close:focus {
+    color: #1f2937;
+    transform: scale(1.1);
+}
+
+/* Modal subscription section styling */
+.subscription-section-modal {
+    padding: 60px 40px 40px;
+}
+
+.subscription-section-modal h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    color: #1f2937;
+}
+
+.subscription-section-modal .subscription-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #64748b;
+    margin-bottom: 40px;
+}
+
+/* Hide sticky button when modal is open */
+body.modal-open .sticky-subscribe {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .calendar-header h1 {
+        font-size: 2rem;
+    }
+    
+    .subscription-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .subscription-card {
+        padding: 20px;
+    }
+    
+    .url-container {
+        flex-direction: column;
+    }
+    
+    
+    .event-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .event-actions {
+        justify-content: flex-start;
+    }
+    
+    /* Sticky button mobile adjustments */
+    .sticky-subscribe {
+        padding: 12px 15px;
+    }
+    
+    .sticky-btn {
+        padding: 14px 20px;
+        font-size: 1rem;
+    }
+    
+    /* Modal mobile adjustments */
+    .modal-content {
+        margin: 10px;
+        width: calc(100% - 20px);
+        max-height: calc(100vh - 20px);
+    }
+    
+    .subscription-section-modal {
+        padding: 40px 20px 20px;
+    }
+    
+    .subscription-section-modal h2 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .calendar-hero {
+        padding: 40px 20px;
+    }
+    
+    .calendar-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .subscribe-btn {
+        padding: 12px 15px;
+    }
+    
+    .subscribe-btn .btn-text {
+        gap: 1px;
+    }
+    
+    .subscribe-btn strong {
+        font-size: 0.9rem;
+    }
+    
+    .subscribe-btn small {
+        font-size: 0.8rem;
+    }
+    
+    /* Extra small screen adjustments */
+    .sticky-btn {
+        padding: 12px 16px;
+        font-size: 0.95rem;
+    }
+    
+    .sticky-btn-text {
+        display: none;
+    }
+    
+    .sticky-btn-icon {
+        font-size: 1.5rem;
+    }
+    
+    .subscription-section-modal {
+        padding: 30px 15px 15px;
+    }
+}
