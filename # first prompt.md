@@ -6,7 +6,7 @@ Short term:
 - Create a simple landing page that explains the functionality and a CTA to express interest
 - Calendars will have individual pages where people can subscribe to an existing .ics feed.
 - On desktop and mobile, it should offer one-click subscribe options for Apple Calendar, Google Calendar, and Outlook.
-- It should also display the feed URL (with copy button), and a QR code for easy phone access.
+- It should also display the feed URL (with copy button) for easy access.
 - Additionally, render the events from the .ics feed in a list the calendar page itself (basic visual presentation).
 - First calendar will be manually managed, no user system.
 

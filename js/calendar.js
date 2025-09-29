@@ -15,7 +15,6 @@ class CalendarPage {
     init() {
         this.setupSubscriptionButtons();
         this.setupCopyUrl();
-        this.generateQRCode();
         this.setupModal();
         this.setupStickySubscribeButton();
         this.loadEventsFromICS();
@@ -143,45 +142,6 @@ class CalendarPage {
         });
     }
 
-    generateQRCode() {
-        const qrContainer = document.getElementById('qr-code');
-        
-        if (typeof QRCode !== 'undefined') {
-            QRCode.toCanvas(qrContainer, this.calendarUrl, {
-                width: 150,
-                height: 150,
-                margin: 2,
-                color: {
-                    dark: '#1f2937',
-                    light: '#ffffff'
-                }
-            }, (error) => {
-                if (error) {
-                    console.error('QR code generation failed:', error);
-                    qrContainer.innerHTML = '<p>QR code unavailable</p>';
-                }
-            });
-
-            // Setup download functionality
-            const downloadBtn = document.getElementById('download-qr');
-            downloadBtn.addEventListener('click', () => {
-                QRCode.toDataURL(this.calendarUrl, {
-                    width: 300,
-                    height: 300,
-                    margin: 3
-                }, (error, url) => {
-                    if (!error) {
-                        const link = document.createElement('a');
-                        link.download = 'calendar-qr-code.png';
-                        link.href = url;
-                        link.click();
-                    }
-                });
-            });
-        } else {
-            qrContainer.innerHTML = '<p>QR code library not loaded</p>';
-        }
-    }
 
     setupModal() {
         const modal = document.getElementById('subscribe-modal');
@@ -272,15 +232,6 @@ class CalendarPage {
                         </div>
                     </div>
 
-                    <!-- QR Code -->
-                    <div class="subscription-card">
-                        <h3>📲 QR Code</h3>
-                        <p>Scan with your phone for instant access</p>
-                        <div class="qr-container">
-                            <div id="qr-code"></div>
-                            <button class="download-btn" id="download-qr">⬇️ Download QR</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         `;
@@ -288,7 +239,6 @@ class CalendarPage {
         // Re-setup event handlers for the modal content
         this.setupSubscriptionButtons();
         this.setupCopyUrl();
-        this.generateQRCode();
 
         // Show modal
         modal.style.display = 'block';
@@ -322,32 +272,49 @@ class CalendarPage {
         eventsList.innerHTML = '<div class="loading">Loading events from calendar feed...</div>';
 
         try {
-            // Use AllOrigins API to bypass CORS restrictions
-            console.log('Fetching calendar via AllOrigins API...');
-            
-            const allOriginsResponse = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(this.httpCalendarUrl)}`);
-            
-            if (!allOriginsResponse.ok) {
-                throw new Error(`AllOrigins API request failed: ${allOriginsResponse.status} ${allOriginsResponse.statusText}`);
-            }
-            
-            const allOriginsData = await allOriginsResponse.json();
-            console.log('AllOrigins response status:', allOriginsData.status);
-            
-            if (!allOriginsData.contents) {
-                throw new Error(`AllOrigins API did not return calendar data. Status: ${allOriginsData.status?.http_code || 'unknown'}`);
-            }
-            
             let icsData;
-            
-            // Check if the content is base64 encoded (data URL format)
-            if (allOriginsData.contents.startsWith('data:')) {
-                console.log('Decoding base64 calendar data...');
-                const base64Data = allOriginsData.contents.split(',')[1];
-                icsData = atob(base64Data);
+
+            // Check if we're in development mode
+            if (this.config.settings.developmentMode) {
+                console.log('🔧 Development mode: Loading local example.ics file...');
+                
+                // Load local example.ics file
+                const localResponse = await fetch('./example.ics');
+                
+                if (!localResponse.ok) {
+                    throw new Error(`Failed to load local example.ics: ${localResponse.status} ${localResponse.statusText}`);
+                }
+                
+                icsData = await localResponse.text();
+                console.log('✅ Successfully loaded local calendar data');
             } else {
-                console.log('Using plain text calendar data...');
-                icsData = allOriginsData.contents;
+                console.log('🌐 Production mode: Fetching calendar via AllOrigins API...');
+                
+                // Use AllOrigins API to bypass CORS restrictions
+                const allOriginsResponse = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(this.httpCalendarUrl)}`);
+                
+                if (!allOriginsResponse.ok) {
+                    throw new Error(`AllOrigins API request failed: ${allOriginsResponse.status} ${allOriginsResponse.statusText}`);
+                }
+                
+                const allOriginsData = await allOriginsResponse.json();
+                console.log('AllOrigins response status:', allOriginsData.status);
+                
+                if (!allOriginsData.contents) {
+                    throw new Error(`AllOrigins API did not return calendar data. Status: ${allOriginsData.status?.http_code || 'unknown'}`);
+                }
+                
+                // Check if the content is base64 encoded (data URL format)
+                if (allOriginsData.contents.startsWith('data:')) {
+                    console.log('Decoding base64 calendar data...');
+                    const base64Data = allOriginsData.contents.split(',')[1];
+                    icsData = atob(base64Data);
+                } else {
+                    console.log('Using plain text calendar data...');
+                    icsData = allOriginsData.contents;
+                }
+                
+                console.log('✅ Successfully fetched remote calendar data');
             }
             
             // Validate that we received valid ICS data
@@ -355,24 +322,42 @@ class CalendarPage {
                 throw new Error('Received data is not valid ICS calendar format');
             }
             
-            console.log('✅ Successfully fetched and validated calendar data');
             console.log(`Calendar contains ${icsData.split('BEGIN:VEVENT').length - 1} events`);
 
             this.parseICSData(icsData);
             this.renderEvents();
         } catch (error) {
             console.error('Error loading ICS calendar:', error);
+            
+            // Show different error messages based on mode
+            const isDevMode = this.config.settings.developmentMode;
+            const errorTitle = isDevMode ? 'Unable to load local calendar file' : 'Unable to load calendar events';
+            const errorDescription = isDevMode 
+                ? 'There was an error loading the local example.ics file.'
+                : 'There was an error loading the calendar feed. This usually happens due to CORS restrictions.';
+            
+            const solutions = isDevMode 
+                ? [
+                    'Make sure the example.ics file exists in the root directory',
+                    'Check that the file is accessible via HTTP (not file:// protocol)',
+                    'Verify the ICS file format is valid'
+                ]
+                : [
+                    'The calendar may be set to private - make sure it\'s public',
+                    'The calendar URL may have changed',
+                    'CORS proxy services may be temporarily unavailable'
+                ];
+
             eventsList.innerHTML = `
                 <div class="error-message">
-                    <h3>Unable to load calendar events</h3>
-                    <p>There was an error loading the calendar feed. This usually happens due to CORS restrictions.</p>
+                    <h3>${errorTitle}</h3>
+                    <p>${errorDescription}</p>
                     <div class="error-details">
+                        <p><strong>Mode:</strong> ${isDevMode ? 'Development (local file)' : 'Production (remote URL)'}</p>
                         <p><strong>Technical details:</strong> ${error.message}</p>
                         <p><strong>Possible solutions:</strong></p>
                         <ul>
-                            <li>The calendar may be set to private - make sure it's public</li>
-                            <li>The calendar URL may have changed</li>
-                            <li>CORS proxy services may be temporarily unavailable</li>
+                            ${solutions.map(solution => `<li>${solution}</li>`).join('')}
                         </ul>
                     </div>
                     <button onclick="location.reload()" class="retry-btn">🔄 Retry</button>
@@ -386,6 +371,10 @@ class CalendarPage {
             // Parse the ICS data using ical.js
             const jcalData = ICAL.parse(icsData);
             const comp = new ICAL.Component(jcalData);
+            
+            // Extract calendar metadata
+            this.extractCalendarMetadata(comp);
+            
             const vevents = comp.getAllSubcomponents('vevent');
 
             this.events = vevents.map((vevent, index) => {
@@ -401,14 +390,22 @@ class CalendarPage {
                     }
                 }
 
+                // Extract URL
+                let url = null;
+                const urlProp = vevent.getFirstProperty('url');
+                if (urlProp) {
+                    url = urlProp.getFirstValue();
+                }
+
                 return {
                     id: index + 1,
                     title: event.summary || 'Untitled Event',
                     startDate: event.startDate.toJSDate(),
                     endDate: event.endDate.toJSDate(),
-                    location: event.location || 'Location TBD',
-                    description: event.description || 'No description available.',
-                    organizer: organizer
+                    location: event.location || null, // Don't set default fallback, use null for empty
+                    description: event.description,
+                    organizer: organizer,
+                    url: url
                 };
             });
 
@@ -418,6 +415,34 @@ class CalendarPage {
         } catch (error) {
             console.error('Error parsing ICS data:', error);
             throw new Error('Failed to parse calendar data');
+        }
+    }
+
+    extractCalendarMetadata(comp) {
+        // Extract X-WR-CALNAME (calendar title)
+        const calNameProp = comp.getFirstProperty('x-wr-calname');
+        const calendarTitle = calNameProp ? calNameProp.getFirstValue() : 'Calendar';
+        
+        // Extract X-WR-CALDESC (calendar description)
+        const calDescProp = comp.getFirstProperty('x-wr-caldesc');
+        const calendarDescription = calDescProp ? calDescProp.getFirstValue() : 'Calendar events';
+        
+        // Update the HTML elements
+        this.updateCalendarHeader(calendarTitle, calendarDescription);
+        
+        console.log('Calendar metadata extracted:', { title: calendarTitle, description: calendarDescription });
+    }
+
+    updateCalendarHeader(title, description) {
+        const titleElement = document.querySelector('header h1');
+        const descriptionElement = document.querySelector('header p');
+        
+        if (titleElement) {
+            titleElement.textContent = title;
+        }
+        
+        if (descriptionElement) {
+            descriptionElement.textContent = description;
         }
     }
 
@@ -452,10 +477,9 @@ class CalendarPage {
 
     renderEventCard(event) {
         const formatDate = (date) => {
-            return new Intl.DateTimeFormat('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
+            return new Intl.DateTimeFormat('es-ES', {
+                weekday: 'short',
+                month: 'short',
                 day: 'numeric'
             }).format(date);
         };
@@ -468,31 +492,34 @@ class CalendarPage {
             }).format(date);
         };
 
+        const cardClass = event.url ? 'event-card event-card-clickable' : 'event-card';
+        const cardAttributes = event.url ? `data-event-id="${event.id}" data-url="${event.url}" style="cursor: pointer;"` : `data-event-id="${event.id}"`;
+        
         return `
-            <div class="event-card" data-event-id="${event.id}">
+            <div class="${cardClass}" ${cardAttributes}>
                 <div class="event-header">
-                    <div>
-                        <h3 class="event-title">${event.title}</h3>
+                    <h3 class="event-title">${event.title}</h3>
+                    ${event.url ? `
+                    <div class="event-arrow">
+                        <img src="assets/icons/arrow-top-right.svg" alt="External link" class="arrow-icon">
                     </div>
+                    ` : ''}
                 </div>
                 
                 <div class="event-datetime">
-                    <span>📅</span>
-                    <span>${formatDate(event.startDate)} at ${formatTime(event.startDate)} - ${formatTime(event.endDate)}</span>
+                    <img src="assets/icons/calendar.svg" alt="Date" class="event-icon">
+                    <span>${formatDate(event.startDate)}</span>
                 </div>
                 
+                ${event.location ? `
                 <div class="event-location">
-                    <span>📍</span>
+                    <img src="assets/icons/location.svg" alt="Location" class="event-icon">
                     <span>${event.location}</span>
                 </div>
+                ` : ''}
                 
-                <p class="event-description">${event.description}</p>
+                ${event.description ? `<p class="event-description">${event.description}</p>` : ''}
                 
-                <div class="event-actions">
-                    <button class="add-to-calendar" data-event-id="${event.id}">
-                        Add to Calendar
-                    </button>
-                </div>
             </div>
         `;
     }
@@ -503,6 +530,22 @@ class CalendarPage {
             btn.addEventListener('click', () => {
                 const eventId = parseInt(btn.dataset.eventId);
                 this.addEventToCalendar(eventId);
+            });
+        });
+
+        // Add click handlers for clickable event cards with URLs
+        const clickableCards = document.querySelectorAll('.event-card-clickable');
+        clickableCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Prevent click if clicking on add-to-calendar button
+                if (e.target.closest('.add-to-calendar')) {
+                    return;
+                }
+                
+                const url = card.dataset.url;
+                if (url) {
+                    window.open(url, '_blank', 'noopener,noreferrer');
+                }
             });
         });
     }
@@ -516,7 +559,7 @@ class CalendarPage {
             return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
         };
 
-        const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${formatGoogleDate(event.startDate)}/${formatGoogleDate(event.endDate)}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}`;
+        const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${formatGoogleDate(event.startDate)}/${formatGoogleDate(event.endDate)}&details=${encodeURIComponent(event.description || '')}&location=${encodeURIComponent(event.location || '')}`;
 
         window.open(googleCalendarUrl, '_blank');
     }

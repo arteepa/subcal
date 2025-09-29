@@ -32,7 +32,11 @@ export const userConfig = {
         theme: "light", // light or dark
         language: "en-US",
         dateFormat: "MM/DD/YYYY",
-        timeFormat: "12h" // 12h or 24h
+        timeFormat: "12h", // 12h or 24h
+        
+        // Development mode - set to true to load local example.ics file
+        // Set to false for production to use remote calendar URLs
+        developmentMode: true
     }
 };
 

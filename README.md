@@ -8,7 +8,7 @@ A lightweight web application for sharing iCalendar (.ics) feeds with beautiful,
 - ✅ **Landing Page**: Clean, modern landing page explaining functionality
 - ✅ **Calendar Pages**: Individual pages for calendar subscriptions
 - ✅ **One-Click Subscribe**: Support for Apple Calendar, Google Calendar, and Outlook
-- ✅ **Feed Display**: Copy-able feed URLs and QR codes for mobile access
+- ✅ **Feed Display**: Copy-able feed URLs for easy access
 - ✅ **Event Rendering**: Visual display of events from .ics feeds
 - ✅ **Responsive Design**: Works seamlessly on desktop and mobile
 
@@ -23,7 +23,6 @@ A lightweight web application for sharing iCalendar (.ics) feeds with beautiful,
 - **Frontend**: Pure HTML, CSS, and vanilla JavaScript (no frameworks)
 - **Libraries**: 
   - [ical.js](https://github.com/mozilla-comm/ical.js/) for iCalendar parsing
-  - [QRCode.js](https://github.com/davidshimjs/qrcodejs) for QR code generation
 - **Architecture**: Modular, clean code structure for easy expansion
 
 ## Getting Started
@@ -57,8 +56,7 @@ A lightweight web application for sharing iCalendar (.ics) feeds with beautiful,
 \`\`\`
 calendario/
 ├── index.html              # Landing page
-├── calendar/
-│   └── demo.html           # Demo calendar page
+├── calendar.html           # Calendar page
 ├── css/
 │   ├── styles.css          # Main styles
 │   └── calendar.css        # Calendar-specific styles
@@ -66,16 +64,16 @@ calendario/
 │   ├── main.js            # Landing page functionality
 │   └── calendar.js        # Calendar page functionality
 ├── feeds/
-│   └── demo.ics           # Demo iCalendar file
+│   └── calendar.ics       # Calendar iCalendar file
 └── package.json           # Project configuration
 \`\`\`
 
 ## Usage
 
-### Viewing the Demo
+### Viewing the Calendar
 1. Visit the landing page at `/`
-2. Click "View Demo Calendar" to see a sample calendar
-3. Try the subscription options and QR code functionality
+2. Click "View Calendar" to see a sample calendar
+3. Try the subscription options
 
 ### Creating Your Own Calendar
 Currently, calendars are manually managed by placing `.ics` files in the `feeds/` directory and creating corresponding HTML pages in the `calendar/` directory.
@@ -106,7 +104,6 @@ The app supports multiple subscription methods:
 - **Apple Calendar**: `webcal://` protocol for automatic subscription
 - **Google Calendar**: Direct integration with Google Calendar's "Add by URL" feature
 - **Outlook**: Manual URL import with step-by-step instructions
-- **QR Codes**: Mobile-friendly QR codes for easy phone access
 
 ## Development
 
@@ -114,7 +111,7 @@ The app supports multiple subscription methods:
 The codebase is designed to be modular and extensible:
 
 1. **Landing Page**: Modify `index.html`, `css/styles.css`, and `js/main.js`
-2. **Calendar Pages**: Use `calendar/demo.html` as a template
+2. **Calendar Pages**: Use `calendar/calendar.html` as a template
 3. **Styling**: Add styles to `css/calendar.css` for calendar-specific features
 4. **Functionality**: Extend `js/calendar.js` for new calendar features
 
@@ -138,17 +135,13 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Roadmap
 
-### Phase 1 (Complete)
+### MVP
 - ✅ Basic landing page and calendar subscription functionality
 - ✅ One-click subscription support
-- ✅ QR code generation
 - ✅ Event list rendering
 
-### Phase 2 (Next)
-- 🔄 User authentication system
-- 🔄 Calendar creation interface
-- 🔄 Event management UI
-- 🔄 Real .ics feed generation
+### Future
+- Bring your own
 
 ### Phase 3 (Future)
 - 🔄 Custom domains and branding
@@ -162,4 +155,6 @@ For questions, issues, or feature requests, please open an issue on GitHub or co
 
 ---
 
-Built with ❤️ for seamless calendar sharing.
+seamless calendar sharing.
+
+

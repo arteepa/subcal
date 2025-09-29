@@ -3,30 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demo Calendar - tribecal</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/calendar.css">
+    <title>subcal</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <header>
         <nav>
             <div class="nav-container">
-                <a href="../index.html" class="logo">📅 tribecal</a>
-                <div class="nav-links">
-                    <a href="../index.html">Home</a>
-                    <a href="#events">Events</a>
-                    <a href="#" id="nav-subscribe">Subscribe</a>
-                </div>
+                <a href="index.html" class="logo">
+                    <img src="assets/logo.png" srcset="assets/logo.png 1x, assets/logo@2x.png 2x" alt="subcal" style="height: 24px; width: auto;">
+                </a>
             </div>
         </nav>
+        <div class="calendar-header">
+            <h1>calendar title</h1>                
+            <p>calendar description</p>
+        </div>
     </header>
 
     <main>
 
         <section id="events" class="events-section">
-            <div class="container">
-                <h2>Upcoming Events</h2>
-                
+            <div class="container">                
                 <div id="events-list" class="events-list">
                     <!-- Events will be loaded here by JavaScript -->
                     <div class="loading">Loading events...</div>
@@ -82,15 +80,6 @@
                                 </div>
                             </div>
 
-                            <!-- QR Code -->
-                            <div class="subscription-card">
-                                <h3>📲 QR Code</h3>
-                                <p>Scan with your phone for instant access</p>
-                                <div class="qr-container">
-                                    <div id="qr-code"></div>
-                                    <button class="download-btn" id="download-qr">⬇️ Download QR</button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -99,24 +88,16 @@
         
         <!-- Sticky Subscribe Button -->
         <div id="sticky-subscribe" class="sticky-subscribe">
+            <p>Follow these events in your calendar app:</p>
             <button id="sticky-subscribe-btn" class="sticky-btn">
-                <span class="sticky-btn-icon">📅</span>
                 <span class="sticky-btn-text">Subscribe to Calendar</span>
             </button>
         </div>
     </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 tribecal. Built for seamless calendar sharing.</p>
-        </div>
-    </footer>
-
-    <!-- Include QR Code library -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <!-- Include iCal parsing library -->
     <script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>
     <!-- Calendar functionality -->
-    <script type="module" src="../js/calendar.js"></script>
+    <script type="module" src="js/calendar.js"></script>
 </body>
 </html>
