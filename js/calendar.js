@@ -190,13 +190,12 @@ class CalendarPage {
         // Reset modal content to show subscription options
         modalContent.innerHTML = `
             <div class="subscription-section-modal">
-                <h2>Subscribe to This Calendar</h2>
-                <p class="subscription-subtitle">Choose your preferred method to stay updated</p>
+                <p class="subscription-subtitle">Suscribe with your preferred method to stay updated</p>
                 
                 <div class="subscription-grid">
                     <!-- One-click subscription buttons -->
                     <div class="subscription-card">
-                        <h3>📱 One-Click Subscribe</h3>
+                        <h3>Popular Calendars</h3>
                         <div class="subscribe-buttons">
                             <button class="subscribe-btn apple-btn" data-service="apple">
                                 <span class="btn-icon">🍎</span>
@@ -224,7 +223,7 @@ class CalendarPage {
 
                     <!-- Direct URL -->
                     <div class="subscription-card">
-                        <h3>🔗 Direct URL</h3>
+                        <h3>Use direct URL</h3>
                         <p>Copy this URL to add to any calendar app</p>
                         <div class="url-container">
                             <input type="text" id="calendar-url" readonly value="${this.calendarUrl}">

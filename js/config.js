@@ -37,7 +37,7 @@ export const userConfig = {
         
         // Development mode - set to true to load local example.ics file
         // Set to false for production to use remote calendar URLs
-        developmentMode: true
+        developmentMode: false
     }
 };
 

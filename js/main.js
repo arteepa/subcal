@@ -47,23 +47,34 @@ class LandingPage {
 
     setupInterestForm() {
         const form = document.getElementById('interest-form');
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = form.querySelector('input[type="email"]').value;
             
-            // Store email locally (in a real app, this would go to a backend)
-            const interests = JSON.parse(localStorage.getItem('emailInterests') || '[]');
-            if (!interests.includes(email)) {
-                interests.push(email);
-                localStorage.setItem('emailInterests', JSON.stringify(interests));
+            // Let the form submit naturally to Formspree
+            const formData = new FormData(form);
+            
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    // Show success message
+                    this.showSuccessMessage('Thank you for your interest! We\'ll notify you when we launch.');
+                    
+                    // Close modal and reset form
+                    document.getElementById('interest-modal').style.display = 'none';
+                    form.reset();
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                this.showSuccessMessage('Something went wrong. Please try again.');
             }
-
-            // Show success message
-            this.showSuccessMessage('Thank you for your interest! We\'ll notify you when we launch.');
-            
-            // Close modal
-            document.getElementById('interest-modal').style.display = 'none';
-            form.reset();
         });
     }
 
