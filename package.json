@@ -4,9 +4,12 @@
   "description": "A web app for sharing iCalendar feeds with beautiful subscription pages",
   "main": "index.html",
   "scripts": {
-    "dev": "npx http-server . -p 3000 -o",
-    "start": "npx http-server . -p 3000",
-    "build": "echo 'No build step needed for vanilla HTML/CSS/JS'",
+    "dev": "node scripts/build.js development && npx http-server . -p 3000 -o --ext html",
+    "start": "npx http-server . -p 3000 --ext html",
+    "build": "node scripts/build.js production",
+    "build:dev": "node scripts/build.js development",
+    "deploy": "npm run build && fly deploy",
+    "deploy:local": "npm run build:dev && npx http-server . -p 3000 -o --ext html",
     "lint": "echo 'No linting configured yet'"
   },
   "keywords": [
@@ -18,7 +21,9 @@
   ],
   "author": "Pablo",
   "license": "MIT",
-  "devDependencies": {},
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
   "dependencies": {
     "http-server": "^14.1.1"
   },

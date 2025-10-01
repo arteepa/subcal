@@ -1,4 +1,5 @@
-// User and Calendar Configuration
+// User and Calendar Configuration Template
+// This file is used by the build script to generate the final config.js
 export const userConfig = {
     // User Information
     username: "Pablo Rodriguez",

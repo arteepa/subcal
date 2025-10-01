@@ -27,19 +27,22 @@ RUN npm ci --include=dev
 # Copy application code
 COPY . .
 
-# Build application
+# Build application for production
 RUN npm run build
 
 # Remove development dependencies
 RUN npm prune --omit=dev
 
 
-# Final stage for app image
-FROM base
+# Final stage for app image - use nginx for better URL handling
+FROM nginx:alpine
 
 # Copy built application
 COPY --from=build /app /app
 
-# Start the server by default, this can be overwritten at runtime
+# Copy nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Start nginx
 EXPOSE 3000
-CMD [ "npm", "run", "start" ]
+CMD ["nginx", "-g", "daemon off;"]

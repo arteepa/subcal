@@ -19,6 +19,7 @@
     
     /* Background Colors */
     --background: #000;
+    --background-secondary: #1a1a1a;
     
     /* Border Colors */
     --border: #2a2a2a;
@@ -42,6 +43,17 @@ body {
     background-color: var(--background);
 }
 
+/* Default link styles */
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent-hover);
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -63,7 +75,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 48px;
+    height: 64px;
 }
 
 .logo {
@@ -105,7 +117,7 @@ header {
 .hero {
     background: var(--background);
     color: var(--text-primary);
-    padding: 80px 20px;
+    padding: 40px 20px;
     text-align: center;
 }
 
@@ -115,16 +127,18 @@ header {
 }
 
 .hero h1 {
-    font-size: 3rem;
+    font-size: 2.6rem;
     margin-bottom: 20px;
     font-weight: 700;
+    line-height: 1;
 }
 
 .hero-subtitle {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin-bottom: 40px;
     opacity: 0.9;
     line-height: 1.5;
+    color: var(--text-secondary);
 }
 
 .cta-buttons {
@@ -136,7 +150,7 @@ header {
 
 /* Buttons */
 .btn {
-    padding: 15px 30px;
+    padding: 8px 16px;
     border: none;
     border-radius: 8px;
     font-size: 1.1rem;
@@ -170,8 +184,8 @@ header {
 
 /* Features Section */
 .features {
-    padding: 80px 20px;
-    background: var(--background);
+    padding: 8px 20px;
+    background: var(--background-secondary);
 }
 
 .features h2 {
@@ -191,14 +205,7 @@ header {
     text-align: center;
     padding: 40px 20px;
     border-radius: 12px;
-    background: var(--background);
     border: 1px solid var(--border-light);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px var(--shadow-color);
 }
 
 .feature-icon {
@@ -219,14 +226,13 @@ header {
 
 /* How It Works Section */
 .how-it-works {
-    padding: 80px 20px;
+    padding: 40px 20px;
     background: var(--background);
 }
 
 .how-it-works h2 {
     text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 60px;
+    font-size: 1.3rem;
     color: var(--text-primary);
 }
 
@@ -244,8 +250,8 @@ header {
 }
 
 .step-number {
-    width: 60px;
-    height: 60px;
+    width: 48px;
+    height: 48px;
     background: var(--accent-color);
     color: var(--background);
     border-radius: 50%;
