@@ -308,7 +308,13 @@ class CalendarPage {
                 if (allOriginsData.contents.startsWith('data:')) {
                     console.log('Decoding base64 calendar data...');
                     const base64Data = allOriginsData.contents.split(',')[1];
-                    icsData = atob(base64Data);
+                    // Properly decode UTF-8 from base64
+                    const binaryString = atob(base64Data);
+                    const bytes = new Uint8Array(binaryString.length);
+                    for (let i = 0; i < binaryString.length; i++) {
+                        bytes[i] = binaryString.charCodeAt(i);
+                    }
+                    icsData = new TextDecoder('utf-8').decode(bytes);
                 } else {
                     console.log('Using plain text calendar data...');
                     icsData = allOriginsData.contents;
@@ -477,7 +483,7 @@ class CalendarPage {
 
     renderEventCard(event) {
         const formatDate = (date) => {
-            return new Intl.DateTimeFormat('es-ES', {
+            return new Intl.DateTimeFormat('en-US', {
                 weekday: 'short',
                 month: 'short',
                 day: 'numeric'
@@ -492,33 +498,43 @@ class CalendarPage {
             }).format(date);
         };
 
+        // Helper function to escape HTML entities
+        const escapeHtml = (text) => {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        };
+
         const cardClass = event.url ? 'event-card event-card-clickable' : 'event-card';
         const cardAttributes = event.url ? `data-event-id="${event.id}" data-url="${event.url}" style="cursor: pointer;"` : `data-event-id="${event.id}"`;
         
         return `
             <div class="${cardClass}" ${cardAttributes}>
                 <div class="event-header">
-                    <h3 class="event-title">${event.title}</h3>
+                    <h3 class="event-title">${escapeHtml(event.title)}</h3>
                     ${event.url ? `
                     <div class="event-arrow">
-                        <img src="assets/icons/arrow-top-right.svg" alt="External link" class="arrow-icon">
+                        <svg class="arrow-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M19 4.00001C19.5523 4 20 4.44772 20 5.00001V15.7618C20 16.3141 19.5523 16.7618 19 16.7618H17.8096C17.2573 16.7618 16.8096 16.3141 16.8096 15.7618L16.8095 9.44638L7.96303 18.2929C7.5725 18.6834 6.93933 18.6834 6.54881 18.2929L5.70708 17.4511C5.31657 17.0606 5.31658 16.4274 5.7071 16.0369L14.5535 7.19046H8.23822C7.68594 7.19046 7.23822 6.74275 7.23822 6.19046V5.00007C7.23822 4.44779 7.68593 4.00007 8.23822 4.00007L19 4.00001Z" fill="currentColor"/>
+                        </svg>
                     </div>
                     ` : ''}
                 </div>
                 
-                <div class="event-datetime">
+                <div class="event-data">
                     <img src="assets/icons/calendar.svg" alt="Date" class="event-icon">
                     <span>${formatDate(event.startDate)}</span>
                 </div>
                 
                 ${event.location ? `
-                <div class="event-location">
+                <div class="event-data">
                     <img src="assets/icons/location.svg" alt="Location" class="event-icon">
-                    <span>${event.location}</span>
+                    <span>${escapeHtml(event.location)}</span>
                 </div>
                 ` : ''}
                 
-                ${event.description ? `<p class="event-description">${event.description}</p>` : ''}
+                ${event.description ? `<p class="event-description">${escapeHtml(event.description)}</p>` : ''}
                 
             </div>
         `;

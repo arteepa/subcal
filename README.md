@@ -55,8 +55,8 @@ A lightweight web application for sharing iCalendar (.ics) feeds with beautiful,
 
 \`\`\`
 calendario/
-├── index.html              # Landing page
-├── calendar.html           # Calendar page
+├── index.html             # Calendar page (main page)
+├── landing.html           # Landing page
 ├── css/
 │   ├── styles.css          # Main styles
 │   └── calendar.css        # Calendar-specific styles
@@ -110,8 +110,8 @@ The app supports multiple subscription methods:
 ### Adding New Features
 The codebase is designed to be modular and extensible:
 
-1. **Landing Page**: Modify `index.html`, `css/styles.css`, and `js/main.js`
-2. **Calendar Pages**: Use `calendar/calendar.html` as a template
+1. **Landing Page**: Modify `landing.html`, `css/styles.css`, and `js/main.js`
+2. **Calendar Pages**: Use `index.html` as the main calendar page
 3. **Styling**: Add styles to `css/calendar.css` for calendar-specific features
 4. **Functionality**: Extend `js/calendar.js` for new calendar features
 

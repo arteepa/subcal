@@ -3,104 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tribecal - Share Your Events</title>
+    <title>subcal</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <header>
         <nav>
             <div class="nav-container">
-                <h1 class="logo">tribecal</h1>
-                <div class="nav-links">
-                    <a href="#features">Features</a>
-                    <a href="#how-it-works">How It Works</a>
-                    <a href="#calendar" class="calendar-link">View Calendar</a>
-                </div>
+                <a href="landing.html" class="logo">
+                    <img src="assets/logo.png" srcset="assets/logo.png 1x, assets/logo@2x.png 2x" alt="subcal" style="height: 20px; width: auto;">
+                </a>
             </div>
         </nav>
+        <div class="calendar-header">
+            <h1></h1>                
+            <p></p>
+        </div>
     </header>
 
     <main>
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Share Your Calendar Events with Anyone</h1>
-                <p class="hero-subtitle">
-                    Create beautiful, subscribable calendar pages that work with Apple Calendar, 
-                    Google Calendar, and Outlook. Share events effortlessly with direct links.
-                </p>
-                <div class="cta-buttons">
-                    <button class="btn btn-primary" id="express-interest">Express Interest</button>
-                    <a href="calendar.html" class="btn btn-secondary">View Calendar</a>
+
+        <section id="events" class="events-section">
+            <div class="container">                
+                <div id="events-list" class="events-list">
+                    <!-- Events will be loaded here by JavaScript -->
+                    <div class="loading">Loading events...</div>
                 </div>
             </div>
         </section>
 
-        <section id="features" class="features">
-            <div class="container">
-                <h2>Why Choose tribecal?</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">📱</div>
-                        <h3>One-Click Subscribe</h3>
-                        <p>Compatible with Apple Calendar, Google Calendar, and Outlook. Your subscribers get automatic updates.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔄</div>
-                        <h3>Real-time Sync</h3>
-                        <p>Changes to your calendar automatically sync to all subscribers. No manual updates needed.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🎨</div>
-                        <h3>Beautiful Display</h3>
-                        <p>Clean, responsive design that looks great on desktop and mobile devices.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="how-it-works" class="how-it-works">
-            <div class="container">
-                <h2>How It Works</h2>
-                <div class="steps">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <h3>Create Your Calendar</h3>
-                        <p>Add your events and generate a shareable calendar page</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <h3>Share the Link</h3>
-                        <p>Send the calendar URL to your audience</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <h3>They Subscribe</h3>
-                        <p>One-click subscription to their preferred calendar app</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Interest Modal -->
-        <div id="interest-modal" class="modal">
+        <!-- Subscribe Modal -->
+        <div id="subscribe-modal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <h2>Express Your Interest</h2>
-                <p>Be the first to know when tribecal launches!</p>
-                <form id="interest-form">
-                    <input type="email" placeholder="Enter your email" required>
-                    <button type="submit" class="btn btn-primary">Notify Me</button>
-                </form>
+                <div id="modal-content-inner">
+                    <div class="subscription-section-modal">
+                        <h2>Subscribe to This Calendar</h2>
+                        <p class="subscription-subtitle">Choose your preferred method to stay updated</p>
+                        
+                        <div class="subscription-grid">
+                            <!-- One-click subscription buttons -->
+                            <div class="subscription-card">
+                                <h3>📱 One-Click Subscribe</h3>
+                                <div class="subscribe-buttons">
+                                    <button class="subscribe-btn apple-btn" data-service="apple">
+                                        <span class="btn-icon">🍎</span>
+                                        <span class="btn-text">
+                                            <strong>Apple Calendar</strong>
+                                            <small>iPhone, iPad, Mac</small>
+                                        </span>
+                                    </button>
+                                    <button class="subscribe-btn google-btn" data-service="google">
+                                        <span class="btn-icon">📅</span>
+                                        <span class="btn-text">
+                                            <strong>Google Calendar</strong>
+                                            <small>Android, Web, Gmail</small>
+                                        </span>
+                                    </button>
+                                    <button class="subscribe-btn outlook-btn" data-service="outlook">
+                                        <span class="btn-icon">📬</span>
+                                        <span class="btn-text">
+                                            <strong>Outlook Calendar</strong>
+                                            <small>Windows, Office 365</small>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Direct URL -->
+                            <div class="subscription-card">
+                                <h3>🔗 Direct URL</h3>
+                                <p>Copy this URL to add to any calendar app</p>
+                                <div class="url-container">
+                                    <input type="text" id="calendar-url" readonly value="">
+                                    <button class="copy-btn" id="copy-url">📋 Copy</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+        
+        <!-- Sticky Subscribe Button -->
+        <div id="sticky-subscribe" class="sticky-subscribe">
+            <p>Follow these events in your calendar app:</p>
+            <button id="sticky-subscribe-btn" class="sticky-btn">
+                <span class="sticky-btn-text">Subscribe to Calendar</span>
+            </button>
         </div>
     </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 tribecal. Built for seamless calendar sharing.</p>
-        </div>
-    </footer>
-
-    <script src="js/main.js"></script>
+    <!-- Include iCal parsing library -->
+    <script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>
+    <!-- Calendar functionality -->
+    <script type="module" src="js/calendar.js"></script>
 </body>
 </html>
