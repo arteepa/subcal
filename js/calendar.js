@@ -44,17 +44,23 @@ class CalendarPage {
                 content = `
                     <div class="subscription-instructions">
                         <h3>🍎 Subscribe with Apple Calendar</h3>
-                        <p>Click the button below to automatically add this calendar to your Apple Calendar app.</p>
+                        <p>Tap the button to add this calendar using the webcal protocol.</p>
                         <div style="margin: 20px 0;">
                             <a href="${actionUrl}" class="btn btn-primary">Open in Apple Calendar</a>
                         </div>
-                        <p><strong>Manual Instructions:</strong></p>
+                        <p><strong>Manual Instructions (iPhone/iPad):</strong></p>
                         <ol>
-                            <li>Open Calendar app on your device</li>
-                            <li>Go to Calendar → Add Account → Other</li>
-                            <li>Select "Add CalDAV Account"</li>
-                            <li>Enter the calendar URL: <code>${this.httpCalendarUrl}</code></li>
-                            <li>Tap "Add" to subscribe</li>
+                            <li>Open the Settings app</li>
+                            <li>Go to Calendar → Accounts → Add Account → Other</li>
+                            <li>Under Calendars, choose "Add Subscribed Calendar"</li>
+                            <li>Enter: <code>${this.calendarUrl}</code></li>
+                            <li>Tap Next, then Save</li>
+                        </ol>
+                        <p><strong>Manual Instructions (Mac):</strong></p>
+                        <ol>
+                            <li>Open the Calendar app</li>
+                            <li>File → New Calendar Subscription…</li>
+                            <li>Paste: <code>${this.calendarUrl}</code> and click Subscribe</li>
                         </ol>
                     </div>
                 `;

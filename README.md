@@ -1,29 +1,14 @@
-# subcal 📅
+# subcal
 
-A lightweight web application for sharing iCalendar (.ics) feeds with beautiful, subscribable calendar pages.
+Subscribable calendar page.
 
 ## Features
 
 ### Current (Short-term Goals)
-- ✅ **Landing Page**: Clean, modern landing page explaining functionality
-- ✅ **Calendar Pages**: Individual pages for calendar subscriptions
-- ✅ **One-Click Subscribe**: Support for Apple Calendar, Google Calendar, and Outlook
-- ✅ **Feed Display**: Copy-able feed URLs for easy access
-- ✅ **Event Rendering**: Visual display of events from .ics feeds
-- ✅ **Responsive Design**: Works seamlessly on desktop and mobile
-
-### Planned (Long-term Goals)
-- 🔄 **User Accounts**: Authentication system for managing calendars
-- 🔄 **Calendar Creation**: UI for users to create and manage their own calendars
-- 🔄 **Event Management**: Add, edit, and delete events through the web interface
-- 🔄 **Custom Domains**: Allow users to use their own domains for calendar pages
-
-## Tech Stack
-
-- **Frontend**: Pure HTML, CSS, and vanilla JavaScript (no frameworks)
-- **Libraries**: 
-  - [ical.js](https://github.com/mozilla-comm/ical.js/) for iCalendar parsing
-- **Architecture**: Modular, clean code structure for easy expansion
+- **Calendar Page**: Individual pages for calendar subscriptions
+- **One-Click Subscribe**: Support for Apple Calendar, Google Calendar, and Outlook
+- **Feed Display**: Copy-able feed URLs for easy access
+- **Event Rendering**: Visual display of events from .ics feeds
 
 ## Getting Started
 
@@ -49,7 +34,7 @@ A lightweight web application for sharing iCalendar (.ics) feeds with beautiful,
    npm run dev
    \`\`\`
 
-4. Open your browser to `http://localhost:3000`
+4. Open your browser to `http://localhost:3000` (or the port shown in the terminal output)
 
 ## Project Structure
 
