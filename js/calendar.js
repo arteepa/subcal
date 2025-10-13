@@ -38,17 +38,24 @@ class CalendarPage {
         let content = '';
         let actionUrl = '';
 
+        const renderBackHeader = (titleWithIcon) => `
+            <div class="subscription-detail-header">
+                <button class="subscription-back" id="subscription-back">← Back</button>
+                <h3 style="margin:0;">${titleWithIcon}</h3>
+            </div>
+        `;
+
         switch (service) {
             case 'apple':
                 actionUrl = this.calendarUrl;
                 content = `
                     <div class="subscription-instructions">
-                        <h3>🍎 Subscribe with Apple Calendar</h3>
-                        <p>Tap the button to add this calendar using the webcal protocol.</p>
-                        <div style="margin: 20px 0;">
+                        ${renderBackHeader('🍎 Subscribe with Apple Calendar')}
+                        <p class="instructions-intro">Tap the button to add this calendar using the webcal protocol.</p>
+                        <div class="cta-row">
                             <a href="${actionUrl}" class="btn btn-primary">Open in Apple Calendar</a>
                         </div>
-                        <p><strong>Manual Instructions (iPhone/iPad):</strong></p>
+                        <p class="section-heading">Manual Instructions (iPhone/iPad)</p>
                         <ol>
                             <li>Open the Settings app</li>
                             <li>Go to Calendar → Accounts → Add Account → Other</li>
@@ -56,7 +63,7 @@ class CalendarPage {
                             <li>Enter: <code>${this.calendarUrl}</code></li>
                             <li>Tap Next, then Save</li>
                         </ol>
-                        <p><strong>Manual Instructions (Mac):</strong></p>
+                        <p class="section-heading">Manual Instructions (Mac)</p>
                         <ol>
                             <li>Open the Calendar app</li>
                             <li>File → New Calendar Subscription…</li>
@@ -70,12 +77,13 @@ class CalendarPage {
                 actionUrl = `https://calendar.google.com/calendar/u/0/r/settings/addbyurl?cid=${encodeURIComponent(this.httpCalendarUrl)}`;
                 content = `
                     <div class="subscription-instructions">
-                        <h3>📅 Subscribe with Google Calendar</h3>
-                        <p>Click the button below to add this calendar to your Google Calendar.</p>
-                        <div style="margin: 20px 0;">
+                        ${renderBackHeader('📅 Subscribe with Google Calendar')}
+                        <p class="instructions-intro">Click the button below to add this calendar to your Google Calendar.</p>
+                        <div class="cta-row">
                             <a href="${actionUrl}" target="_blank" class="btn btn-primary">Add to Google Calendar</a>
+                            <button class="btn btn-secondary" id="copy-google-url">Copy URL</button>
                         </div>
-                        <p><strong>Manual Instructions:</strong></p>
+                        <p class="section-heading">Manual Instructions</p>
                         <ol>
                             <li>Open Google Calendar in your browser</li>
                             <li>Click the "+" next to "Other calendars"</li>
@@ -90,8 +98,8 @@ class CalendarPage {
             case 'outlook':
                 content = `
                     <div class="subscription-instructions">
-                        <h3>📬 Subscribe with Outlook Calendar</h3>
-                        <p>Follow these steps to add this calendar to Outlook:</p>
+                        ${renderBackHeader('📬 Subscribe with Outlook Calendar')}
+                        <p class="instructions-intro">Follow these steps to add this calendar to Outlook:</p>
                         <ol>
                             <li>Open Outlook Calendar</li>
                             <li>Click "Add calendar" or "Subscribe to calendar"</li>
@@ -99,8 +107,8 @@ class CalendarPage {
                             <li>Enter this URL: <code>${this.httpCalendarUrl}</code></li>
                             <li>Give it a name and click "Import"</li>
                         </ol>
-                        <div style="margin: 20px 0;">
-                            <button class="btn btn-secondary" onclick="navigator.clipboard.writeText('${this.httpCalendarUrl}')">📋 Copy URL</button>
+                        <div class="cta-row">
+                            <button class="btn btn-secondary" id="copy-outlook-url">📋 Copy URL</button>
                         </div>
                     </div>
                 `;
@@ -111,11 +119,36 @@ class CalendarPage {
         modal.style.display = 'block';
         document.body.classList.add('modal-open');
 
-        // If there's an action URL, try to open it automatically for Apple and Google
-        if (actionUrl && (service === 'apple' || service === 'google')) {
-            setTimeout(() => {
-                window.open(actionUrl, '_blank');
-            }, 1000);
+        // If there's an action URL, try to open it automatically
+        if (actionUrl && service === 'apple') {
+            // Use same-window to allow iOS/macOS to intercept webcal://
+            window.location.href = actionUrl;
+        } else if (actionUrl && service === 'google') {
+            window.open(actionUrl, '_blank');
+        }
+
+        // Back button to return to main options
+        const backBtn = document.getElementById('subscription-back');
+        if (backBtn) {
+            backBtn.addEventListener('click', () => this.openSubscriptionModal());
+        }
+
+        // Copy helpers on detailed views
+        const copyGoogle = document.getElementById('copy-google-url');
+        if (copyGoogle) {
+            copyGoogle.addEventListener('click', async () => {
+                await navigator.clipboard.writeText(this.httpCalendarUrl);
+                copyGoogle.textContent = '✅ Copied!';
+                setTimeout(() => (copyGoogle.textContent = 'Copy URL'), 1600);
+            });
+        }
+        const copyOutlook = document.getElementById('copy-outlook-url');
+        if (copyOutlook) {
+            copyOutlook.addEventListener('click', async () => {
+                await navigator.clipboard.writeText(this.httpCalendarUrl);
+                copyOutlook.textContent = '✅ Copied!';
+                setTimeout(() => (copyOutlook.textContent = '📋 Copy URL'), 1600);
+            });
         }
     }
 
@@ -171,11 +204,40 @@ class CalendarPage {
         });
     }
 
+    _detectPlatform() {
+        const ua = navigator.userAgent || navigator.vendor || window.opera;
+        const isiOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+        const isMac = /Macintosh|Mac OS X/.test(ua);
+        const isAndroid = /Android/.test(ua);
+        const isWindows = /Windows/.test(ua);
+        if (isiOS) return 'ios';
+        if (isAndroid) return 'android';
+        if (isMac) return 'mac';
+        if (isWindows) return 'windows';
+        return 'other';
+    }
+
+    smartSubscribe() {
+        const platform = this._detectPlatform();
+        if (platform === 'ios' || platform === 'mac') {
+            window.location.href = this.calendarUrl;
+            setTimeout(() => this.openSubscriptionModal(), 1200);
+            return;
+        }
+        if (platform === 'android') {
+            const googleUrl = `https://calendar.google.com/calendar/u/0/r/settings/addbyurl?cid=${encodeURIComponent(this.httpCalendarUrl)}`;
+            window.location.href = googleUrl;
+            setTimeout(() => this.openSubscriptionModal(), 1200);
+            return;
+        }
+        this.openSubscriptionModal();
+    }
+
     setupStickySubscribeButton() {
         const stickyBtn = document.getElementById('sticky-subscribe-btn');
         if (stickyBtn) {
             stickyBtn.addEventListener('click', () => {
-                this.openSubscriptionModal();
+                this.smartSubscribe();
             });
         }
 

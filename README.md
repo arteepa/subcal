@@ -36,6 +36,11 @@ Subscribable calendar page.
 
 4. Open your browser to `http://localhost:3000` (or the port shown in the terminal output)
 
+
+X. Update the local example.ics file for quick testing:
+curl -s "https://calendar.google.com/calendar/ical/c_a323145e31d68becfab6a971a42df2462cdc130880df65e4c43754980f08b125%40group.calendar.google.com/public/basic.ics" -o example.ics 
+
+
 ## Project Structure
 
 \`\`\`

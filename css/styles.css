@@ -168,6 +168,7 @@ header {
 
 .btn-primary:hover {
     background: var(--accent-hover);
+    color: var(--background);
     transform: translateY(-2px);
 }
 
@@ -720,13 +721,19 @@ footer {
 }
 
 .events-list {
-    max-width: 800px;
+    max-width: 800px; 
     margin: 0 auto;
+    padding-bottom: 120px; /* Prevent sticky footer overlap */
 }
 
 .event-card {
     padding: 12px;
     border-bottom: 1px solid var(--border);
+}
+
+/* Remove bottom border from the last event in the list */
+.events-list .event-card:last-child {
+    border-bottom: none;
 }
 
 .event-header {
@@ -913,45 +920,104 @@ footer {
 /* Modal updates for subscription instructions */
 .subscription-instructions {
     text-align: left;
+    padding: 32px 28px;
 }
 
 .subscription-instructions h3 {
-    margin-bottom: 20px;
+    margin-bottom: 14px;
     color: var(--text-primary);
+    font-size: 1.4rem;
+}
+
+.subscription-instructions .instructions-intro {
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+}
+
+.subscription-instructions .cta-row {
+    margin: 18px 0 22px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.subscription-instructions .btn-primary {
+    padding: 12px 18px;
+    border-radius: 10px;
+}
+
+.subscription-instructions .btn-secondary {
+    padding: 12px 18px;
+    border-radius: 10px;
 }
 
 .subscription-instructions p,
 .subscription-instructions li {
     color: var(--text-secondary);
-    line-height: 1.6;
+    line-height: 1.65;
 }
 
-.instruction-step {
-    margin-bottom: 15px;
-    padding-left: 20px;
-    position: relative;
-}
-
-.instruction-step::before {
-    content: counter(step-counter);
-    counter-increment: step-counter;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: var(--accent-color);
-    color: var(--background);
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    font-weight: bold;
+.subscription-instructions code {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border);
+    padding: 2px 6px;
+    border-radius: 6px;
+    color: var(--text-primary);
+    word-break: break-all;
 }
 
 .subscription-instructions ol {
     counter-reset: step-counter;
+    padding-left: 28px;
+}
+
+.subscription-instructions ol li {
+    position: relative;
+    margin: 10px 0 10px 0;
+}
+
+.subscription-instructions ol li::marker {
+    color: var(--accent-color);
+    font-weight: 700;
+}
+
+.subscription-instructions .section-heading {
+    margin-top: 22px;
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.subscription-instructions .note {
+    margin-top: 16px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    opacity: 0.9;
+}
+
+/* Back header for detail step */
+.subscription-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.subscription-back {
+    appearance: none;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.subscription-back:hover {
+    color: var(--text-primary);
+    border-color: var(--accent-color);
+    background: rgba(255, 171, 61, 0.08);
 }
 
 /* Sticky Subscribe Button */
