@@ -1,36 +1,48 @@
 {
-  "name": "calendario-app",
-  "version": "1.0.0",
+  "name": "subcal",
+  "version": "2.0.0",
   "description": "A web app for sharing iCalendar feeds with beautiful subscription pages",
-  "main": "index.html",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "node scripts/build.js development && npx http-server . -p ${PORT:-3000} -o --ext html",
-    "start": "echo 'Production uses nginx - see Dockerfile'",
-    "build": "node scripts/build.js production",
-    "build:dev": "node scripts/build.js development",
-    "deploy": "npm run build && fly deploy",
-    "deploy:local": "npm run build:dev && npx http-server . -p ${PORT:-3000} -o --ext html",
-    "lint": "echo 'No linting configured yet'"
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "typecheck": "nuxt typecheck",
+    "lint": "eslint .",
+    "deploy:staging": "npm run build && fly deploy --config fly.staging.toml",
+    "deploy:production": "npm run build && fly deploy"
   },
   "keywords": [
     "calendar",
     "icalendar",
     "ics",
     "events",
-    "subscription"
+    "subscription",
+    "nuxt3",
+    "vue3"
   ],
   "author": "Pablo",
   "license": "MIT",
-  "devDependencies": {},
   "dependencies": {
-    "http-server": "^14.1.1"
+    "@headlessui/vue": "^1.7.16",
+    "@heroicons/vue": "^2.1.1",
+    "@pinia/nuxt": "^0.5.1",
+    "ical.js": "^1.5.0",
+    "nuxt": "^3.13.0",
+    "pinia": "^2.1.7",
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^6.11.4",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3",
+    "vue-tsc": "^2.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/calendario-app.git"
-  },
-  "bugs": {
-    "url": "https://github.com/your-username/calendario-app/issues"
-  },
-  "homepage": "https://github.com/your-username/calendario-app#readme"
+    "url": "https://github.com/your-username/subcal.git"
+  }
 }

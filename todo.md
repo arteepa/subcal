@@ -1,0 +1,2 @@
+- Extend this into a platform where users can create their own calendar page
+- They should be able to add events via a UI, generate their own .ics feed, and share a subscription link/landing page with others.
