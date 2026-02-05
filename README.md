@@ -1,150 +1,111 @@
 # subcal
 
-Subscribable calendar page.
+A web app for sharing iCalendar feeds with beautiful subscription pages.
 
-## Features
+## Tech Stack
 
-### Current (Short-term Goals)
-- **Calendar Page**: Individual pages for calendar subscriptions
-- **One-Click Subscribe**: Support for Apple Calendar, Google Calendar, and Outlook
-- **Feed Display**: Copy-able feed URLs for easy access
-- **Event Rendering**: Visual display of events from .ics feeds
+- **Framework**: Next.js 14+ (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **UI Components**: Headless UI
+- **State Management**: Zustand
+- **Calendar Parsing**: ical.js
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js (for development server)
-- Modern web browser
+
+- Node.js 20+
+- npm
 
 ### Installation
 
-1. Clone the repository:
-   \`\`\`bash
-   git clone https://github.com/your-username/calendario-app.git
-   cd calendario-app
-   \`\`\`
+```bash
+npm install
+```
 
-2. Install dependencies:
-   \`\`\`bash
-   npm install
-   \`\`\`
+### Development
 
-3. Start the development server:
-   \`\`\`bash
-   npm run dev
-   \`\`\`
+```bash
+npm run dev
+```
 
-4. Open your browser to `http://localhost:3000` (or the port shown in the terminal output)
+Open [http://localhost:3000](http://localhost:3000) with your browser.
 
+### Production Build
 
-X. Update the local example.ics file for quick testing:
-curl -s "https://calendar.google.com/calendar/ical/c_a323145e31d68becfab6a971a42df2462cdc130880df65e4c43754980f08b125%40group.calendar.google.com/public/basic.ics" -o example.ics 
-
+```bash
+npm run build
+npm start
+```
 
 ## Project Structure
 
-\`\`\`
-calendario/
-├── index.html             # Calendar page (main page)
-├── landing.html           # Landing page
-├── css/
-│   ├── styles.css          # Main styles
-│   └── calendar.css        # Calendar-specific styles
-├── js/
-│   ├── main.js            # Landing page functionality
-│   └── calendar.js        # Calendar page functionality
-├── feeds/
-│   └── calendar.ics       # Calendar iCalendar file
-└── package.json           # Project configuration
-\`\`\`
+```
+subcal/
+├── app/                    # Next.js App Router pages
+│   ├── layout.tsx          # Root layout
+│   ├── page.tsx            # Landing page
+│   ├── globals.css         # Global styles & Tailwind config
+│   └── [slug]/             # Dynamic calendar pages
+├── components/
+│   ├── ui/                 # Shared UI components
+│   ├── landing/            # Landing page components
+│   └── calendar/           # Calendar page components
+├── lib/                    # Utility functions
+│   ├── config.ts           # Calendar configurations
+│   ├── ics-parser.ts       # ICS file parsing
+│   ├── platform.ts         # Platform detection
+│   ├── types.ts            # TypeScript types
+│   └── utils.ts            # Helper functions
+├── stores/                 # Zustand state stores
+├── public/assets/          # Static assets
+└── types/                  # Additional type declarations
+```
 
-## Usage
+## Adding a Calendar
 
-### Viewing the Calendar
-1. Visit the landing page at `/`
-2. Click "View Calendar" to see a sample calendar
-3. Try the subscription options
+Edit `lib/config.ts` to add new calendar configurations:
 
-### Creating Your Own Calendar
-Currently, calendars are manually managed by placing `.ics` files in the `feeds/` directory and creating corresponding HTML pages in the `calendar/` directory.
+```typescript
+const calendars: Record<string, CalendarConfig> = {
+  'your-slug': {
+    username: 'Your Name',
+    calendar: {
+      webCalUrl: 'webcal://...',
+      httpUrl: 'https://...',
+      name: 'Calendar Name',
+      description: 'Calendar description',
+      // ...
+    },
+    // ...
+  },
+}
+```
 
-Future versions will include a web interface for calendar creation.
+The calendar will be available at `/your-slug`.
 
-## iCalendar Format
+## Deployment
 
-The app uses standard iCalendar (.ics) format. Here's a basic event structure:
+### Fly.io
 
-\`\`\`
-BEGIN:VEVENT
-UID:unique-id@your-domain.com
-DTSTART:20241015T140000Z
-DTEND:20241015T170000Z
-SUMMARY:Event Title
-DESCRIPTION:Event description
-LOCATION:Event location
-ORGANIZER:CN=Organizer Name:MAILTO:email@domain.com
-STATUS:CONFIRMED
-END:VEVENT
-\`\`\`
+```bash
+fly deploy
+```
 
-## Subscription URLs
+### Docker
 
-The app supports multiple subscription methods:
+```bash
+docker build -t subcal .
+docker run -p 3000:3000 subcal
+```
 
-- **Apple Calendar**: `webcal://` protocol for automatic subscription
-- **Google Calendar**: Direct integration with Google Calendar's "Add by URL" feature
-- **Outlook**: Manual URL import with step-by-step instructions
+## Environment Variables
 
-## Development
-
-### Adding New Features
-The codebase is designed to be modular and extensible:
-
-1. **Landing Page**: Modify `landing.html`, `css/styles.css`, and `js/main.js`
-2. **Calendar Pages**: Use `index.html` as the main calendar page
-3. **Styling**: Add styles to `css/calendar.css` for calendar-specific features
-4. **Functionality**: Extend `js/calendar.js` for new calendar features
-
-### Code Organization
-- Keep HTML semantic and accessible
-- Use CSS custom properties for consistent theming
-- Write modular JavaScript classes for maintainability
-- Follow the existing naming conventions
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/new-feature`
-3. Commit your changes: `git commit -am 'Add new feature'`
-4. Push to the branch: `git push origin feature/new-feature`
-5. Submit a pull request
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_FORMSPREE_ID` | Formspree form ID for interest form |
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Roadmap
-
-### MVP
-- ✅ Basic landing page and calendar subscription functionality
-- ✅ One-click subscription support
-- ✅ Event list rendering
-
-### Future
-- Bring your own
-
-### Phase 3 (Future)
-- 🔄 Custom domains and branding
-- 🔄 Analytics and subscription tracking
-- 🔄 Email notifications
-- 🔄 API for external integrations
-
-## Support
-
-For questions, issues, or feature requests, please open an issue on GitHub or contact the maintainer.
-
----
-
-seamless calendar sharing.
-
-
+MIT

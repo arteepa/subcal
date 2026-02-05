@@ -1,16 +1,12 @@
 {
-  "name": "calendario-app",
-  "version": "1.0.0",
+  "name": "subcal",
+  "version": "2.0.0",
   "description": "A web app for sharing iCalendar feeds with beautiful subscription pages",
-  "main": "index.html",
   "scripts": {
-    "dev": "node scripts/build.js development && npx http-server . -p ${PORT:-3000} -o --ext html",
-    "start": "echo 'Production uses nginx - see Dockerfile'",
-    "build": "node scripts/build.js production",
-    "build:dev": "node scripts/build.js development",
-    "deploy": "npm run build && fly deploy",
-    "deploy:local": "npm run build:dev && npx http-server . -p ${PORT:-3000} -o --ext html",
-    "lint": "echo 'No linting configured yet'"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "keywords": [
     "calendar",
@@ -21,9 +17,24 @@
   ],
   "author": "Pablo",
   "license": "MIT",
-  "devDependencies": {},
   "dependencies": {
-    "http-server": "^14.1.1"
+    "@headlessui/react": "^2.2.9",
+    "@tailwindcss/postcss": "^4.1.18",
+    "@types/node": "^25.2.1",
+    "@types/react": "^19.2.13",
+    "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.4.24",
+    "clsx": "^2.1.1",
+    "http-server": "^14.1.1",
+    "ical.js": "^2.2.1",
+    "next": "^16.1.6",
+    "postcss": "^8.5.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwind-merge": "^3.4.0",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3",
+    "zustand": "^5.0.11"
   },
   "repository": {
     "type": "git",

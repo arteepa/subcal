@@ -4,13 +4,14 @@
 ARG NODE_VERSION=20.18.0
 FROM node:${NODE_VERSION}-slim AS base
 
-LABEL fly_launch_runtime="Node.js"
+LABEL fly_launch_runtime="Next.js"
 
 # Node.js app lives here
 WORKDIR /app
 
 # Set production environment
 ENV NODE_ENV="production"
+ENV NEXT_TELEMETRY_DISABLED=1
 
 
 # Throw-away build stage to reduce size of final image
@@ -22,7 +23,7 @@ RUN apt-get update -qq && \
 
 # Install node modules
 COPY package-lock.json package.json ./
-RUN npm ci --include=dev
+RUN npm ci
 
 # Copy application code
 COPY . .
@@ -30,19 +31,18 @@ COPY . .
 # Build application for production
 RUN npm run build
 
-# Remove development dependencies
-RUN npm prune --omit=dev
 
+# Final stage for app image
+FROM base
 
-# Final stage for app image - use nginx for better URL handling
-FROM nginx:alpine
+# Copy standalone build
+COPY --from=build /app/.next/standalone ./
+COPY --from=build /app/.next/static ./.next/static
+COPY --from=build /app/public ./public
 
-# Copy built application
-COPY --from=build /app /app
+# Start the server
+EXPOSE 3000
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
-# Copy nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Start nginx
-EXPOSE 8080
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["node", "server.js"]

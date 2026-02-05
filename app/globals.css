@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'InstrumentSans';
+  src: url('/assets/InstrumentSans.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  /* Colors */
+  --color-accent: #FFAB3D;
+  --color-accent-hover: #d97706;
+  --color-background: #000000;
+  --color-background-secondary: #1a1a1a;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #6a6a6a;
+  --color-border: #2a2a2a;
+
+  /* Font family */
+  --font-sans: 'InstrumentSans', ui-sans-serif, system-ui, sans-serif;
+
+  /* Max width */
+  --max-width-container: 1200px;
+
+  /* Animations */
+  --animate-modal-fade-in: modalFadeIn 0.3s ease-out;
+  --animate-modal-slide-up: modalSlideUp 0.3s ease-out;
+
+  /* Keyframes */
+  @keyframes modalFadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes modalSlideUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-background text-text-primary leading-relaxed font-sans;
+  }
+
+  a {
+    @apply text-accent no-underline transition-colors duration-300;
+  }
+
+  a:hover {
+    @apply text-accent-hover;
+  }
+}
+
+@layer components {
+  .container {
+    max-width: var(--max-width-container);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  /* Glass morphism effect */
+  .glass {
+    background-color: rgb(255 255 255 / 0.05);
+    backdrop-filter: blur(4px);
+  }
+
+  /* Button base styles */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    background-color: var(--color-accent);
+    color: var(--color-background);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-accent-hover);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: 1px solid rgb(255 255 255 / 0.2);
+    color: var(--color-text-primary);
+  }
+
+  .btn-secondary:hover {
+    background-color: white;
+    color: var(--color-background);
+  }
+
+  /* Card styles */
+  .card {
+    background-color: var(--color-background-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    padding: 2rem;
+    transition: all 0.3s;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Event card specific */
+  .event-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-border);
+    background-color: rgb(26 26 26 / 0.5);
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .event-card:hover {
+    background-color: var(--color-background-secondary);
+    border-color: rgb(255 255 255 / 0.1);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
