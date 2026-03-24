@@ -4,7 +4,7 @@ import './globals.css'
 import { Toast } from '@/components/ui/Toast'
 
 const instrumentSans = localFont({
-  src: '../public/assets/InstrumentSans.woff2',
+  src: '../assets/InstrumentSans.woff2',
   variable: '--font-instrument',
   display: 'swap',
   weight: '100 900',

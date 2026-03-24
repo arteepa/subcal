@@ -12,7 +12,8 @@ export function Header() {
               alt="subcal"
               width={90}
               height={30}
-              className="h-[30px] w-auto"
+              className="h-[30px]"
+              style={{ width: 'auto' }}
               priority
             />
           </Link>
