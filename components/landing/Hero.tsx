@@ -16,7 +16,12 @@ export function Hero() {
         <div className="flex flex-wrap gap-4 justify-center">
           <Link href="/panorama">
             <Button variant="primary" size="lg">
-              View Example
+              Local Event Curation
+            </Button>
+          </Link>
+          <Link href="/artee">
+            <Button variant="secondary" size="lg">
+              DJ Gigs Example
             </Button>
           </Link>
         </div>
