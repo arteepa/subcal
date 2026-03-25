@@ -40,8 +40,8 @@ async function getCalendarData(slug: string) {
     let icsData: string
 
     if (config.settings.developmentMode) {
-      // In development, read from local file
-      const filePath = path.join(process.cwd(), 'example.ics')
+      const localFile = config.calendar.localIcsFile ?? 'example.ics'
+      const filePath = path.join(process.cwd(), localFile)
       icsData = fs.readFileSync(filePath, 'utf-8')
     } else {
       // In production, fetch from remote URL with caching
@@ -56,7 +56,16 @@ async function getCalendarData(slug: string) {
       icsData = await response.text()
     }
 
-    const { metadata, events } = parseICS(icsData)
+    const parsed = parseICS(icsData)
+    // Multiple slugs can share one ICS URL; keep per-slug branding from config when needed.
+    const metadata =
+      slug === 'artee'
+        ? {
+            title: config.calendar.name,
+            description: config.calendar.description,
+          }
+        : parsed.metadata
+    const { events } = parsed
 
     // Serialize dates for client components
     const serializedEvents = events.map((event) => ({

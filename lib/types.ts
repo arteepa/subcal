@@ -25,6 +25,8 @@ export interface CalendarConfig {
     description: string
     timezone: string
     color: string
+    /** Root-relative ICS filename used when `settings.developmentMode` is true */
+    localIcsFile?: string
   }
   social: {
     github?: string

@@ -1,19 +1,24 @@
 export function Footer() {
   return (
-    <footer className="py-12 px-5 border-t border-border">
-      <div className="max-w-container mx-auto text-center">
-        <p className="text-text-secondary mb-2">built for seamless calendar sharing</p>
-        <p className="text-text-secondary">
-          by{' '}
-          <a
-            href="https://artee.xyz"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-accent hover:text-accent-hover transition-colors"
-          >
-            artee.xyz
-          </a>
-        </p>
+    <footer className="section-card section-card-even text-center !py-6" style={{ padding: '24px' }}>
+      <div className="text-text-secondary text-sm">
+        Built for seamless sharing by{' '}
+        <a
+          href="https://artee.xyz"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-text-secondary no-underline hover:text-text-primary"
+        >
+          artee.xyz
+        </a>
+      </div>
+      <div className="mt-2">
+        <a href="#" className="text-text-secondary no-underline mx-2 text-sm hover:text-text-primary">
+          Terms
+        </a>
+        <a href="#" className="text-text-secondary no-underline mx-2 text-sm hover:text-text-primary">
+          Privacy
+        </a>
       </div>
     </footer>
   )

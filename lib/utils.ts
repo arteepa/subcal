@@ -13,6 +13,21 @@ export function formatDate(date: Date): string {
   }).format(date)
 }
 
+export function formatDateGroupKey(date: Date): string {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(date)
+}
+
+export function formatDateGroupLabel(date: Date): string {
+  const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(date).toUpperCase()
+  const day = date.getDate()
+  const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(date).toUpperCase()
+  return `${weekday}, ${day} ${month}`
+}
+
 export function formatTime(date: Date): string {
   return new Intl.DateTimeFormat('en-US', {
     hour: 'numeric',

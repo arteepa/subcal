@@ -14,18 +14,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={cn(
-          'inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-all duration-300',
-          // Size variants
+          'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200',
           {
             'px-4 py-2 text-sm': size === 'sm',
-            'px-6 py-3': size === 'md',
+            'px-8 py-4': size === 'md',
             'px-8 py-4 text-lg': size === 'lg',
           },
-          // Style variants
           {
-            'bg-accent text-background hover:bg-accent-hover hover:-translate-y-0.5':
+            'bg-accent text-text-inverse hover:bg-accent-hover hover:-translate-y-0.5':
               variant === 'primary',
-            'border border-white/20 text-text-primary hover:bg-white hover:text-background':
+            'border border-border text-text-primary hover:bg-bg-card-alt':
               variant === 'secondary',
             'text-text-secondary hover:text-text-primary':
               variant === 'ghost',

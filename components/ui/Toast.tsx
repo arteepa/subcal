@@ -17,7 +17,7 @@ export function Toast() {
 
   return (
     <div className="fixed top-5 right-5 z-[1001] animate-modal-slide-up">
-      <div className="bg-green-500 text-white px-5 py-4 rounded-lg font-medium shadow-lg">
+      <div className="bg-accent text-text-inverse px-5 py-4 rounded-2xl font-medium shadow-lg">
         {toastMessage}
       </div>
     </div>

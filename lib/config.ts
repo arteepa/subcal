@@ -13,6 +13,7 @@ const calendars: Record<string, CalendarConfig> = {
       description: 'Personal and professional events calendar',
       timezone: 'America/New_York',
       color: '#4285f4',
+      localIcsFile: 'example-panorama.ics',
     },
     social: {
       github: 'https://github.com/pablo',
@@ -41,6 +42,7 @@ const calendars: Record<string, CalendarConfig> = {
       description: 'Artee\'s DJ Gigs calendar',
       timezone: 'America/New_York',
       color: '#0f9d58',
+      localIcsFile: 'example-artee.ics',
     },
     social: {
       github: 'https://github.com/pablo',

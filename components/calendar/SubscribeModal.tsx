@@ -53,7 +53,7 @@ export function SubscribeModal({ webCalUrl, httpUrl }: SubscribeModalProps) {
               Tap the button to add this calendar using the webcal protocol.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a href={webCalUrl} className="btn-primary px-6 py-3 rounded-lg font-semibold bg-accent text-background hover:bg-accent-hover transition-colors">
+              <a href={webCalUrl} className="btn-primary px-6 py-3 rounded-full font-semibold">
                 Open in Apple Calendar
               </a>
             </div>
@@ -63,7 +63,7 @@ export function SubscribeModal({ webCalUrl, httpUrl }: SubscribeModalProps) {
                 <li>Open the Settings app</li>
                 <li>Go to Calendar → Accounts → Add Account → Other</li>
                 <li>Under Calendars, choose &quot;Add Subscribed Calendar&quot;</li>
-                <li>Enter: <code className="bg-background px-2 py-1 rounded text-sm">{webCalUrl}</code></li>
+                <li>Enter: <code className="bg-bg-dark px-2 py-1 rounded text-sm">{webCalUrl}</code></li>
                 <li>Tap Next, then Save</li>
               </ol>
             </div>
@@ -72,7 +72,7 @@ export function SubscribeModal({ webCalUrl, httpUrl }: SubscribeModalProps) {
               <ol className="list-decimal list-inside space-y-2 text-text-secondary">
                 <li>Open the Calendar app</li>
                 <li>File → New Calendar Subscription…</li>
-                <li>Paste: <code className="bg-background px-2 py-1 rounded text-sm">{webCalUrl}</code> and click Subscribe</li>
+                <li>Paste: <code className="bg-bg-dark px-2 py-1 rounded text-sm">{webCalUrl}</code> and click Subscribe</li>
               </ol>
             </div>
           </div>
@@ -94,7 +94,7 @@ export function SubscribeModal({ webCalUrl, httpUrl }: SubscribeModalProps) {
                 href={getSubscriptionUrl('google', webCalUrl, httpUrl) || '#'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary px-6 py-3 rounded-lg font-semibold bg-accent text-background hover:bg-accent-hover transition-colors"
+                className="btn-primary px-6 py-3 rounded-full font-semibold"
               >
                 Add to Google Calendar
               </a>
@@ -106,7 +106,7 @@ export function SubscribeModal({ webCalUrl, httpUrl }: SubscribeModalProps) {
                 <li>Open Google Calendar in your browser</li>
                 <li>Click the &quot;+&quot; next to &quot;Other calendars&quot;</li>
                 <li>Select &quot;From URL&quot;</li>
-                <li>Paste this URL: <code className="bg-background px-2 py-1 rounded text-sm break-all">{httpUrl}</code></li>
+                <li>Paste this URL: <code className="bg-bg-dark px-2 py-1 rounded text-sm break-all">{httpUrl}</code></li>
                 <li>Click &quot;Add calendar&quot;</li>
               </ol>
             </div>
@@ -126,7 +126,7 @@ export function SubscribeModal({ webCalUrl, httpUrl }: SubscribeModalProps) {
               <li>Open Outlook Calendar</li>
               <li>Click &quot;Add calendar&quot; or &quot;Subscribe to calendar&quot;</li>
               <li>Select &quot;From internet&quot;</li>
-              <li>Enter this URL: <code className="bg-background px-2 py-1 rounded text-sm break-all">{httpUrl}</code></li>
+              <li>Enter this URL: <code className="bg-bg-dark px-2 py-1 rounded text-sm break-all">{httpUrl}</code></li>
               <li>Give it a name and click &quot;Import&quot;</li>
             </ol>
             <CopyButton text={httpUrl} label="Copy URL" variant="secondary" />
@@ -152,15 +152,14 @@ export function SubscribeModal({ webCalUrl, httpUrl }: SubscribeModalProps) {
           </p>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {/* Popular Calendars */}
-            <div className="bg-background rounded-xl p-6 border border-border">
+            <div className="bg-bg-dark rounded-xl p-6 border border-border">
               <h3 className="font-semibold text-text-primary mb-4">Popular Calendars</h3>
               <div className="space-y-3">
                 {services.map((service) => (
                   <button
                     key={service.id}
                     onClick={() => handleServiceClick(service.id)}
-                    className="w-full flex items-center gap-4 p-3 rounded-lg bg-background-secondary hover:bg-white/10 transition-colors text-left"
+                    className="w-full flex items-center gap-4 p-3 rounded-lg bg-bg-card hover:bg-bg-card-alt transition-colors text-left"
                   >
                     <span className="text-2xl">{service.icon}</span>
                     <div>
@@ -172,8 +171,7 @@ export function SubscribeModal({ webCalUrl, httpUrl }: SubscribeModalProps) {
               </div>
             </div>
 
-            {/* Direct URL */}
-            <div className="bg-background rounded-xl p-6 border border-border">
+            <div className="bg-bg-dark rounded-xl p-6 border border-border">
               <h3 className="font-semibold text-text-primary mb-4">Use direct URL</h3>
               <p className="text-text-secondary text-sm mb-4">
                 Copy this URL to add to any calendar app
@@ -183,7 +181,7 @@ export function SubscribeModal({ webCalUrl, httpUrl }: SubscribeModalProps) {
                   type="text"
                   readOnly
                   value={webCalUrl}
-                  className="flex-1 px-3 py-2 bg-background-secondary border border-border rounded-lg text-text-primary text-sm truncate"
+                  className="flex-1 px-3 py-2 bg-bg-card border border-border rounded-lg text-text-primary text-sm truncate"
                 />
                 <CopyButton text={webCalUrl} label="Copy" variant="primary" size="sm" />
               </div>

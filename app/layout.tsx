@@ -11,8 +11,8 @@ const instrumentSans = localFont({
 })
 
 export const metadata: Metadata = {
-  title: 'subcal - Share Your Events',
-  description: 'A web app for sharing iCalendar feeds with beautiful subscription pages',
+  title: 'subcal - Broadcast Your Calendar',
+  description: 'Broadcast a calendar, let people subscribe. Use an open .ICS format or link directly to your existing Google, Apple, or Outlook calendar.',
 }
 
 export default function RootLayout({

@@ -9,26 +9,32 @@
 }
 
 @theme {
-  /* Colors */
-  --color-accent: #FFAB3D;
-  --color-accent-hover: #d97706;
-  --color-background: #000000;
-  --color-background-secondary: #1a1a1a;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #6a6a6a;
-  --color-border: #2a2a2a;
+  --color-bg-dark: #1a1613;
+  --color-bg-card: #201b17;
+  --color-bg-card-alt: #2a241f;
+  --color-accent: #e86b24;
+  --color-accent-hover: #cf5a1a;
+  --color-text-primary: #f5f2eb;
+  --color-text-secondary: #a19890;
+  --color-text-inverse: #201b17;
+  --color-border: #3d342d;
 
-  /* Font family */
+  /* Legacy aliases used by calendar pages */
+  --color-background: #1a1613;
+  --color-background-secondary: #201b17;
+
   --font-sans: 'InstrumentSans', ui-sans-serif, system-ui, sans-serif;
 
-  /* Max width */
-  --max-width-container: 1200px;
+  --max-width-container: 1100px;
 
-  /* Animations */
+  --radius-xl: 40px;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-pill: 999px;
+
   --animate-modal-fade-in: modalFadeIn 0.3s ease-out;
   --animate-modal-slide-up: modalSlideUp 0.3s ease-out;
 
-  /* Keyframes */
   @keyframes modalFadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
@@ -46,15 +52,27 @@
   }
 
   body {
-    @apply bg-background text-text-primary leading-relaxed font-sans;
+    font-family: var(--font-sans);
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
   }
 
   a {
-    @apply text-accent no-underline transition-colors duration-300;
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color 0.2s;
   }
 
   a:hover {
-    @apply text-accent-hover;
+    color: var(--color-accent-hover);
   }
 }
 
@@ -67,35 +85,78 @@
     padding-right: 1.25rem;
   }
 
-  /* Glass morphism effect */
+  /* Stacked section cards */
+  .stack-container {
+    max-width: var(--max-width-container);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+  }
+
+  .section-card {
+    width: 100%;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    padding: 96px 48px;
+  }
+
+  .section-card-odd {
+    background-color: var(--color-bg-card);
+  }
+
+  .section-card-even {
+    background-color: var(--color-bg-card-alt);
+  }
+
+  /* Glass header */
+  .glass-header {
+    padding: 16px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 24px;
+    z-index: 100;
+    backdrop-filter: blur(20px);
+    background-color: rgba(32, 27, 23, 0.85);
+  }
+
   .glass {
     background-color: rgb(255 255 255 / 0.05);
     backdrop-filter: blur(4px);
   }
 
-  /* Button base styles */
+  /* Buttons */
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
+    padding: 16px 32px;
+    border-radius: var(--radius-pill);
     font-weight: 600;
-    transition: all 0.3s;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
   }
 
   .btn-primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
+    padding: 16px 32px;
+    border-radius: var(--radius-pill);
     font-weight: 600;
-    transition: all 0.3s;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
     background-color: var(--color-accent);
-    color: var(--color-background);
+    color: var(--color-text-inverse);
   }
 
   .btn-primary:hover {
@@ -107,23 +168,37 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
+    padding: 16px 32px;
+    border-radius: var(--radius-pill);
     font-weight: 600;
-    transition: all 0.3s;
-    border: 1px solid rgb(255 255 255 / 0.2);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    background-color: transparent;
     color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
   }
 
   .btn-secondary:hover {
-    background-color: white;
-    color: var(--color-background);
+    background-color: var(--color-bg-card-alt);
   }
 
-  /* Card styles */
+  .btn-sm {
+    padding: 10px 24px;
+    font-size: 0.875rem;
+  }
+
+  /* Inner cards (features, pricing) */
+  .inner-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-border);
+    padding: 24px;
+    border-radius: var(--radius-lg);
+  }
+
+  /* Card styles (calendar page) */
   .card {
-    background-color: var(--color-background-secondary);
+    background-color: var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: 1rem;
     padding: 2rem;
@@ -134,7 +209,7 @@
     transform: translateY(-4px);
   }
 
-  /* Event card specific */
+  /* Event card */
   .event-card {
     display: flex;
     align-items: flex-start;
@@ -142,19 +217,34 @@
     padding: 1rem;
     border-radius: 0.75rem;
     border: 1px solid var(--color-border);
-    background-color: rgb(26 26 26 / 0.5);
+    background-color: rgba(32, 27, 23, 0.5);
     transition: all 0.3s;
     cursor: pointer;
   }
 
   .event-card:hover {
-    background-color: var(--color-background-secondary);
-    border-color: rgb(255 255 255 / 0.1);
+    background-color: var(--color-bg-card);
+    border-color: rgba(245, 242, 235, 0.1);
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-card {
+    padding: 48px 24px;
+  }
+
+  .glass-header {
+    padding: 12px 24px;
+  }
+
+  .stack-container {
+    padding: 16px;
+    gap: 16px;
   }
 }
